@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAU Semiconductor Lab Equipment</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* General Reset & Typography */
+        body {
+            /* Matched to Index.html body font */
+            font-family: 'Barlow', sans-serif; 
+            background-color: #f5f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333333; /* NAU Dark */
+        }
+
+        .carousel-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .section-title {
+            /* Matched to Index.html headings */
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 36px; /* Slightly larger to match condensed style */
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            color: #003466; /* NAU Blue */
+            letter-spacing: -0.5px;
+        }
+        
+        .section-title span {
+            color: #6e6e73;
+            font-weight: 500;
+        }
+
+        /* The Scrolling Wrapper */
+        .card-wrapper {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 10px 0 40px 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; 
+        }
+
+        .card-wrapper::-webkit-scrollbar {
+            display: none; 
+        }
+
+        /* The Card Design */
+        .equipment-card {
+            background: white;
+            min-width: 310px;
+            max-width: 310px;
+            height: 480px;
+            border-radius: 4px; /* Squared off slightly to match NAU design language */
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            scroll-snap-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            border-top: 4px solid transparent; /* Prepare for hover effect */
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+            border-top: 4px solid #003466; /* NAU Blue hover accent */
+        }
+
+        /* Text Styles */
+        .tag {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffcd00; /* NAU Gold */
+            background-color: #003466; /* NAU Blue background for contrast */
+            padding: 2px 6px;
+            border-radius: 2px;
+            display: inline-block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Alternate tag styles */
+        .tag.blue { background-color: #003466; color: white; }
+        .tag.grey { background-color: #6e6e73; color: white; }
+
+        .title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.1;
+            color: #003466; /* NAU Blue */
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .image-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .equipment-img {
+            width: 200px;
+            height: 200px;
+            background-color: #f0f0f0;
+            border-radius: 50%; 
+            object-fit: contain;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-weight: 500;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .details-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 10px;
+        }
+
+        .specs {
+            font-family: 'Barlow', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .specs .small {
+            color: #666;
+            font-size: 13px;
+            display: block;
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        /* Button - Matched to Index.html Buttons */
+        .book-btn {
+            font-family: 'Barlow Condensed', sans-serif;
+            background-color: #ffcd00; /* NAU Gold */
+            color: #003466; /* NAU Blue Text */
+            border: none;
+            padding: 8px 20px;
+            border-radius: 2px; /* Slightly squared */
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+            letter-spacing: 0.5px;
+        }
+
+        .book-btn:hover {
+            background-color: #e6b800; /* Gold Hover */
+        }
+        
+        .book-btn.disabled {
+            background-color: #d2d2d7;
+            color: #fff;
+            cursor: default;
+        }
+
+        /* Navigation Arrows */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0,0,0,0.1);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 22px;
+            color: #003466;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .nav-btn:hover { transform: translateY(-50%) scale(1.1); }
+        .nav-btn.left { left: -15px; }
+        .nav-btn.right { right: -15px; }
+
+    </style>
+</head>
+<body>
+
+<div class="carousel-container">
+    <div class="section-title">Lab Equipment. <span></span></div>
+
+    <button class="nav-btn left" onclick="scrollGrid(-340)">&#8249;</button>
+    <button class="nav-btn right" onclick="scrollGrid(340)">&#8250;</button>
+
+    <div class="card-wrapper" id="cardContainer">
+        
+        <div class="equipment-card">
+            <div>
+                <div class="tag">Metrology</div>
+                <h3 class="title">B2 Atomic Force Microscope</h3>
+            </div>
+            <div class="image-container">
+                <img src="B2_AFM.png" class="equipment-img" alt="AFM">
+            </div>
+            <div class="details-row">
+                <div class="specs">Room 145<span class="small">Nano-surface analysis</span></div>
+                <button class="book-btn">Book</button>
+            </div>
+        </div>
+
+        <div class="equipment-card">
+            <div>
+                <div class="tag blue">Deposition</div>
+                <h3 class="title">High-Vacuum Sputter System</h3>
+            </div>
+            <div class="image-container">
+                <img src="Sputtering.webp" class="equipment-img" alt="Sputter">
+            </div>
+            <div class="details-row">
+                <div class="specs">Room 145<span class="small">Thin film deposition</span></div>
+                <button class="book-btn">Book</button>
+            </div>
+        </div>
+
+        <div class="equipment-card">
+            <div>
+                <div class="tag blue">Lithography</div>
+                <h3 class="title">UV Mask<br>Aligner</h3>
+            </div>
+            <div class="image-container">
+                <img src="aligner.jpg" class="equipment-img" alt="Mask Aligner">
+            </div>
+            <div class="details-row">
+                <div class="specs">Yellow Room<span class="small">Micron precision</span></div>
+                <button class="book-btn">Book</button>
+            </div>
+        </div>
+
+        <div class="equipment-card">
+            <div>
+                <div class="tag blue">Lithography</div>
+                <h3 class="title">Programmable Spin Coater</h3>
+            </div>
+            <div class="image-container">
+                <img src="coater.webp" class="equipment-img" alt="Spin Coater">
+            </div>
+            <div class="details-row">
+                <div class="specs">Fume Hood 2<span class="small">Photoresist application</span></div>
+                <button class="book-btn">Book</button>
+            </div>
+        </div>
+
+        <div class="equipment-card">
+            <div>
+                <div class="tag">Packaging</div>
+                <h3 class="title">Wedge Wire<br>Bonder</h3>
+            </div>
+            <div class="image-container">
+                <img src="bond.jpg" class="equipment-img" alt="Wire Bonder">
+            </div>
+            <div class="details-row">
+                <div class="specs">Room 145<span class="small">Chip interconnects</span></div>
+                <button class="book-btn">Book</button>
+            </div>
+        </div>
+
+        <div class="equipment-card">
+            <div>
+                <div class="tag">Metrology</div>
+                <h3 class="title">Stylus<br>Profilometer</h3>
+            </div>
+            <div class="image-container">
+                <img src="bruker.png" class="equipment-img" alt="Profilometer">
+            </div>
+            <div class="details-row">
+                <div class="specs">Room 145<span class="small">Step height measurement</span></div>
+                <button class="book-btn">Book</button>
+            </div>
+        </div>
+
+        <div class="equipment-card">
+            <div>
+                <div class="tag grey">Etching</div>
+                <h3 class="title">O2 Plasma<br>Cleaner</h3>
+            </div>
+            <div class="image-container">
+                <img src="plasma.jpg" class="equipment-img" alt="Plasma Cleaner">
+            </div>
+            <div class="details-row">
+                <div class="specs">Room 142<span class="small">Surface activation</span></div>
+                <button class="book-btn disabled">Service</button>
+            </div>
+        </div>
+
+         <div class="equipment-card">
+            <div>
+                <div class="tag blue">Electrical</div>
+                <h3 class="title">Four-Point<br>Probe</h3>
+            </div>
+            <div class="image-container">
+                <img src="probe.jpeg" class="equipment-img" alt="4 Point Probe">
+            </div>
+            <div class="details-row">
+                <div class="specs">Bench 4<span class="small">Resistivity checks</span></div>
+                <button class="book-btn">Book</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function scrollGrid(amount) {
+        const container = document.getElementById('cardContainer');
+        container.scrollBy({
+            left: amount,
+            behavior: 'smooth'
+        });
+    }
+</script>
+
+</body>
+</html>

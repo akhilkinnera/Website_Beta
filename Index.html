@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAU Semiconductor Metrology & Advanced Manufacturing Lab</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nau: {
+                            blue: '#003466',       // Official NAU Blue
+                            darkNav: '#0f172a',    // The dark navy bar from the screenshot
+                            gold: '#ffcd00',       // Official NAU Gold
+                            goldHover: '#e6b800',  
+                            green: '#43692d',      // The "Request Info" green
+                            offWhite: '#f4f1ed',   
+                            white: '#ffffff'       
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Barlow', 'sans-serif'],           
+                        heading: ['Barlow Condensed', 'sans-serif'], 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth Scrolling */
+        html { scroll-behavior: smooth; }
+        
+        .hero-overlay {
+            background: linear-gradient(rgba(0, 52, 102, 0.85), rgba(0, 52, 102, 0.6));
+        }
+
+        /* Card Hover Effects */
+        .capability-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .capability-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Modal Transitions */
+        #booking-modal, #details-modal { transition: opacity 0.3s ease-in-out; }
+        #booking-modal.hidden, #details-modal.hidden { display: none; opacity: 0; }
+        #booking-modal:not(.hidden), #details-modal:not(.hidden) { display: flex; opacity: 1; }
+        
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-white relative">
+
+    <div class="bg-nau-blue text-white w-full border-b border-blue-900 hidden md:block">
+        <div class="max-w-[1400px] mx-auto px-4 lg:px-8">
+            <div class="flex justify-between h-[50px] items-center">
+                <div class="flex items-center gap-4">
+                    <a href="#" class="flex items-center">
+                        <img src="NAU.png" 
+                             alt="Northern Arizona University" 
+                             class="h-10 w-auto object-contain">
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-6 font-sans text-[15px] font-medium tracking-wide">
+                    <a href="#" class="hover:text-nau-gold transition-colors">Research</a>
+                    <a href="#" class="hover:text-nau-gold transition-colors">Athletics</a>
+                    <a href="#" class="hover:text-nau-gold transition-colors">Alumni</a>
+                    <a href="#" class="hover:text-nau-gold transition-colors">Giving</a>
+                    
+                    <div class="flex items-center gap-1 cursor-pointer hover:text-nau-gold ml-2">
+                        <span class="font-bold uppercase tracking-wider">Quick Links</span>
+                        <i class="fas fa-chevron-down text-nau-gold text-xs"></i>
+                    </div>
+
+                    <div class="flex items-center gap-2 ml-4 text-gray-300">
+                        <i class="fas fa-moon"></i>
+                        <div class="w-10 h-5 bg-blue-400 rounded-full relative cursor-pointer">
+                            <div class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full shadow-md"></div>
+                        </div>
+                        <i class="fas fa-sun text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bg-nau-darkNav text-white sticky top-0 z-40 shadow-xl border-b border-gray-800">
+        <div class="max-w-[1400px] mx-auto px-4 lg:px-8">
+            <div class="flex justify-between h-[70px] items-center">
+                
+                <div class="md:hidden font-heading font-black text-3xl tracking-tighter">NAU <span class="text-nau-gold text-lg font-sans font-normal tracking-normal ml-2">Metrology Lab</span></div>
+
+                <div class="hidden md:flex space-x-8 items-center font-sans text-[17px] font-normal tracking-wide h-full">
+                    <a href="#" class="h-full flex items-center border-b-4 border-transparent hover:border-nau-gold hover:text-nau-gold transition-all">
+                        Home
+                    </a>
+                    <a href="#about" class="h-full flex items-center border-b-4 border-transparent hover:border-nau-gold hover:text-nau-gold transition-all">
+                        About
+                    </a>
+                    <a href="scroll.html" class="h-full flex items-center border-b-4 border-transparent hover:border-nau-gold hover:text-nau-gold transition-all">
+                        Equipment Catalog
+                    </a>
+                    <a href="#education" class="h-full flex items-center border-b-4 border-transparent hover:border-nau-gold hover:text-nau-gold transition-all">
+                        Education
+                    </a>
+                    <a href="#industry" class="h-full flex items-center border-b-4 border-transparent hover:border-nau-gold hover:text-nau-gold transition-all">
+                        Industry
+                    </a>
+                    </a>
+                    <a href="#Billing" class="h-full flex items-center border-b-4 border-transparent hover:border-nau-gold hover:text-nau-gold transition-all">
+                        Billing
+                    </a>
+                    
+                </div>
+
+                <div class="hidden md:flex items-center gap-4">
+                    <button class="text-white hover:text-nau-gold transition-colors mr-2">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+
+                    <a href="#contact" class="bg-nau-green hover:bg-green-800 text-white px-5 py-2 rounded-sm font-medium transition-colors text-base shadow-sm">
+                        Contact Lab
+                    </a>
+
+                    <button onclick="toggleBookingModal()" class="bg-nau-gold text-nau-darkNav px-5 py-2 rounded-sm font-bold hover:bg-nau-goldHover transition-colors shadow-sm flex items-center gap-2">
+                        Book Equipment <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-white hover:text-nau-gold focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-nau-darkNav border-t border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 font-sans text-lg">
+                <a href="#" class="block px-3 py-2 rounded-md font-medium hover:bg-gray-800 hover:text-nau-gold text-white">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md font-medium hover:bg-gray-800 hover:text-nau-gold text-white">About</a>
+                <a href="#capabilities" class="block px-3 py-2 rounded-md font-medium hover:bg-gray-800 hover:text-nau-gold text-white">Capabilities</a>
+                <a href="#education" class="block px-3 py-2 rounded-md font-medium hover:bg-gray-800 hover:text-nau-gold text-white">Education</a>
+                <a href="#industry" class="block px-3 py-2 rounded-md font-medium hover:bg-gray-800 hover:text-nau-gold text-white">Industry</a>
+                <button onclick="toggleBookingModal()" class="block w-full text-left px-3 py-2 rounded-md font-bold bg-nau-gold text-nau-darkNav mt-4">Book Equipment</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative h-[600px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="chip.jpeg" 
+                 alt="Semiconductor Lab Student" 
+                 class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left w-full">
+            <div class="md:w-2/3">
+                <p class="text-nau-gold font-bold tracking-widest uppercase mb-4 text-sm md:text-base font-heading">Precision that Powers Innovation</p>
+                <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 uppercase tracking-tight">
+                    Semiconductor Metrology & Advanced Manufacturing Lab
+                </h1>
+                <p class="text-gray-200 text-lg md:text-xl mb-8 max-w-2xl leading-relaxed font-sans font-normal">
+                    Bridging the gap between academic theory and industry reality. We provide hands-on education, workforce development, and applied research to fuel Arizona’s semiconductor sector.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start font-heading uppercase tracking-wide text-sm">
+                    <a href="#education" class="bg-nau-gold text-nau-blue font-bold py-3 px-8 rounded-sm shadow-lg hover:bg-white hover:text-nau-blue transition-all transform hover:-translate-y-1 text-center">
+                        Explore Programs
+                    </a>
+                    <a href="#contact" class="border-2 border-white text-white font-bold py-3 px-8 rounded-sm hover:bg-white hover:text-nau-blue transition-all text-center">
+                        Schedule a Tour
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="py-16 md:py-24 bg-nau-offWhite">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-nau-blue mb-6 uppercase tracking-tight">Powering Arizona’s High-Tech Future</h2>
+                    <div class="w-16 h-1 bg-nau-gold mb-6"></div>
+                    <p class="text-gray-800 mb-4 leading-relaxed text-lg font-normal">
+                        The NAU Semiconductor Metrology Lab is designed to be the launchpad for the next generation of process technicians and engineers. We go beyond textbook theory, providing students access to industrial-grade optical, laser, pressure, temperature, and nanoscale characterization tools.
+                    </p>
+                    <p class="text-gray-800 leading-relaxed text-lg font-normal">
+                        Our mission is direct: prepare students with the hands-on skills necessary to thrive immediately in Arizona’s rapidly expanding semiconductor manufacturing workforce. From cleanroom protocols to defect analysis, our students learn by doing.
+                    </p>
+                </div>
+                <div class="relative rounded-sm overflow-hidden shadow-2xl h-auto md:h-auto border-4 border-white">
+                    <img src="Students.jpg" 
+                         alt="Students working with equipment" 
+                         class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="capabilities" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-nau-blue mb-4 uppercase tracking-tight">Advanced Characterization & Metrology</h2>
+                <div class="w-20 h-1 bg-nau-gold mx-auto"></div>
+                <p class="mt-4 text-gray-700 max-w-2xl mx-auto text-lg">State-of-the-art equipment available for student training, academic research, and industry collaboration.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="capability-card bg-nau-offWhite p-8 rounded-sm border-t-4 border-nau-blue shadow-sm text-center group hover:bg-white">
+                    <div class="w-16 h-16 bg-white text-nau-blue rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:bg-nau-blue group-hover:text-nau-gold transition-colors">
+                        <i class="fas fa-microscope text-3xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-nau-blue mb-3 uppercase">Digital Microscopy</h3>
+                    <p class="text-gray-700">High-resolution imaging for defect inspection combined with rapid elemental identification capabilities.</p>
+                </div>
+
+                <div class="capability-card bg-nau-offWhite p-8 rounded-sm border-t-4 border-nau-blue shadow-sm text-center group hover:bg-white">
+                    <div class="w-16 h-16 bg-white text-nau-blue rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:bg-nau-blue group-hover:text-nau-gold transition-colors">
+                        <i class="fas fa-wave-square text-3xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-nau-blue mb-3 uppercase">Surface Profiling</h3>
+                    <p class="text-gray-700">Precise measurement of surface roughness, step heights, and film thickness down to the nanometer range.</p>
+                </div>
+
+                <div class="capability-card bg-nau-offWhite p-8 rounded-sm border-t-4 border-nau-blue shadow-sm text-center group hover:bg-white">
+                    <div class="w-16 h-16 bg-white text-nau-blue rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:bg-nau-blue group-hover:text-nau-gold transition-colors">
+                        <i class="fas fa-atom text-3xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-nau-blue mb-3 uppercase">AFM Characterization</h3>
+                    <p class="text-gray-700">Atomic Force Microscopy for topographical imaging and material property mapping at the atomic level.</p>
+                </div>
+
+                <div class="capability-card bg-nau-offWhite p-8 rounded-sm border-t-4 border-nau-blue shadow-sm text-center group hover:bg-white">
+                    <div class="w-16 h-16 bg-white text-nau-blue rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:bg-nau-blue group-hover:text-nau-gold transition-colors">
+                        <i class="fas fa-tachometer-alt text-3xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-nau-blue mb-3 uppercase">Pressure & Temp Calibration</h3>
+                    <p class="text-gray-700">Industry-standard systems for calibrating sensors critical to semiconductor process control environments.</p>
+                </div>
+
+                <div class="capability-card bg-nau-offWhite p-8 rounded-sm border-t-4 border-nau-blue shadow-sm text-center group hover:bg-white">
+                    <div class="w-16 h-16 bg-white text-nau-blue rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:bg-nau-blue group-hover:text-nau-gold transition-colors">
+                        <i class="fas fa-user-graduate text-3xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-nau-blue mb-3 uppercase">Process Training</h3>
+                    <p class="text-gray-700">Hands-on instruction in fundamental fabrication steps, contamination control, and cleanroom protocols.</p>
+                </div>
+
+                <div class="capability-card bg-nau-offWhite p-8 rounded-sm border-t-4 border-nau-blue shadow-sm text-center group hover:bg-white">
+                    <div class="w-16 h-16 bg-white text-nau-blue rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:bg-nau-blue group-hover:text-nau-gold transition-colors">
+                        <i class="fas fa-bullseye text-3xl"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-nau-blue mb-3 uppercase">Optical & Laser Metrology</h3>
+                    <p class="text-gray-700">Non-destructive testing methods utilizing advanced laser interferometry and optical techniques.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="py-16 md:py-24 bg-nau-offWhite">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-nau-blue mb-4 uppercase tracking-tight">Integrated Education Paths</h2>
+                <div class="w-20 h-1 bg-nau-gold mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-sm shadow-md overflow-hidden flex flex-col h-full border-t-4 border-nau-blue">
+                    <div class="p-6 flex-grow">
+                        <h3 class="font-heading text-2xl font-bold text-nau-blue mb-4 uppercase">Technician Training</h3>
+                        <p class="text-gray-700 mb-4 text-xs uppercase tracking-widest font-bold text-nau-gold bg-nau-blue inline-block px-2 py-1 rounded-sm">Workforce Ready</p>
+                        <p class="text-gray-700">Focused skill-building for immediate workforce entry. Covers equipment operation, safety protocols, and basic metrology for semiconductor technicians.</p>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <ul class="text-sm text-gray-700 mb-4 space-y-2 font-medium">
+                            <li><i class="fas fa-check text-green-600 mr-2"></i>Cleanroom Safety</li>
+                            <li><i class="fas fa-check text-green-600 mr-2"></i>Equipment Operation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-sm shadow-xl overflow-hidden flex flex-col h-full border-t-4 border-nau-gold transform md:-translate-y-4 z-10">
+                    <div class="bg-nau-blue text-white py-2 text-center text-xs font-bold uppercase tracking-widest font-heading">Most Popular</div>
+                    <div class="p-6 flex-grow">
+                        <h3 class="font-heading text-2xl font-bold text-nau-blue mb-4 uppercase">Undergraduate Labs</h3>
+                        <p class="text-gray-700 mb-4 text-xs uppercase tracking-widest font-bold text-nau-gold bg-nau-blue inline-block px-2 py-1 rounded-sm">Physics & Engineering</p>
+                        <p class="text-gray-700">Integrating real-world lab experience into engineering and physics curricula. Students gain practical experience alongside theoretical learning.</p>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <ul class="text-sm text-gray-700 mb-4 space-y-2 font-medium">
+                            <li><i class="fas fa-check text-green-600 mr-2"></i>Applied Physics Labs</li>
+                            <li><i class="fas fa-check text-green-600 mr-2"></i>Material Science</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-sm shadow-md overflow-hidden flex flex-col h-full border-t-4 border-nau-blue">
+                    <div class="p-6 flex-grow">
+                        <h3 class="font-heading text-2xl font-bold text-nau-blue mb-4 uppercase">Graduate Research</h3>
+                        <p class="text-gray-700 mb-4 text-xs uppercase tracking-widest font-bold text-nau-gold bg-nau-blue inline-block px-2 py-1 rounded-sm">Advanced Degrees</p>
+                        <p class="text-gray-700">Supporting Master’s and PhD students with sophisticated characterization tools needed for thesis research and novel material studies.</p>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <ul class="text-sm text-gray-700 mb-4 space-y-2 font-medium">
+                            <li><i class="fas fa-check text-green-600 mr-2"></i>Thesis Support</li>
+                            <li><i class="fas fa-check text-green-600 mr-2"></i>Novel Materials</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center text-nau-blue font-bold font-heading uppercase tracking-wide hover:text-nau-gold transition-colors text-lg">
+                    View All Related Courses at NAU <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="industry" class="relative py-20 bg-nau-blue overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-blue-900 opacity-20"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-60 h-60 rounded-full bg-nau-gold opacity-10"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center md:text-left md:flex md:items-center md:justify-between">
+            <div class="md:w-2/3 mb-8 md:mb-0">
+                <h2 class="font-heading text-3xl font-bold text-white mb-4 uppercase tracking-tight">Workforce Development & Industry Partnerships</h2>
+                <p class="text-blue-100 text-lg leading-relaxed">
+                    We are committed to supporting Arizona's tech ecosystem. The lab hosts regular upskilling workshops for current professionals and collaborates directly with industry partners on applied research.
+                </p>
+            </div>
+            <div class="md:w-1/3 flex justify-center md:justify-end">
+                <a href="#contact" class="bg-nau-gold text-nau-blue font-bold py-4 px-8 rounded-sm shadow-lg hover:bg-white transition-colors text-lg font-heading uppercase tracking-wide">
+                    Partner With Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-heading text-3xl font-extrabold text-nau-blue mb-4 uppercase tracking-tight">Accessing the Lab</h2>
+            <p class="text-gray-700 mb-10 text-lg">
+                The lab is available for use by NAU students enrolled in relevant courses, faculty researchers, and external industry partners (by appointment). Current students and staff can view equipment availability and reserve time slots directly.
+            </p>
+            
+            <div class="bg-nau-offWhite p-8 rounded-sm border border-gray-200 inline-block w-full max-w-lg mx-auto shadow-md">
+                <i class="far fa-calendar-alt text-4xl text-nau-blue mb-4"></i>
+                <h3 class="text-2xl font-bold text-nau-blue mb-2 font-heading uppercase">Ready to work?</h3>
+                <p class="text-gray-700 mb-6">Browse our equipment catalog and schedule your time.</p>
+                <button onclick="toggleBookingModal()" class="bg-nau-blue text-white font-bold py-3 px-8 rounded-sm hover:bg-nau-gold hover:text-nau-blue transition-colors w-full sm:w-auto flex items-center justify-center mx-auto gap-2 font-heading uppercase tracking-wide cursor-pointer">
+                    <i class="fab fa-microsoft"></i> View Equipment & Book Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-nau-offWhite border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-heading text-3xl font-extrabold text-nau-blue mb-12 text-center uppercase tracking-tight">Student Outcomes</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-sm shadow-sm flex flex-col md:flex-row gap-6 items-center md:items-start border-l-4 border-nau-gold">
+                    <div class="w-20 h-20 flex-shrink-0 bg-gray-200 rounded-full overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Sarah J" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <i class="fas fa-quote-left text-nau-gold text-2xl mb-2 opacity-50"></i>
+                        <p class="text-gray-700 italic mb-4 font-medium">"The hands-on experience with AFM and surface profiling gave me a massive advantage during interviews. I secured a process engineering role before graduation."</p>
+                        <p class="font-bold text-nau-blue font-heading uppercase tracking-wide">– Sarah J.</p>
+                        <p class="text-sm text-gray-500 font-semibold">Mechanical Engineering '24</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-sm shadow-sm flex flex-col md:flex-row gap-6 items-center md:items-start border-l-4 border-nau-gold">
+                    <div class="w-20 h-20 flex-shrink-0 bg-gray-200 rounded-full overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="David M" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <i class="fas fa-quote-left text-nau-gold text-2xl mb-2 opacity-50"></i>
+                        <p class="text-gray-700 italic mb-4 font-medium">"Having access to industrial-grade calibration tools for my capstone project allowed our team to build a prototype that actually met industry standards."</p>
+                        <p class="font-bold text-nau-blue font-heading uppercase tracking-wide">– David M.</p>
+                        <p class="text-sm text-gray-500 font-semibold">Applied Physics '25</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-nau-blue text-white pt-16 pb-8 border-t-8 border-nau-gold">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-4 text-nau-gold uppercase tracking-widest">Contact Us</h4>
+                    <p class="mb-2 text-blue-100"><i class="fas fa-map-marker-alt w-6 text-center mr-2 text-nau-gold"></i>Engineering Building 69, Room 102</p>
+                    <p class="mb-2 text-blue-100"><i class="fas fa-university w-6 text-center mr-2 text-nau-gold"></i>Northern Arizona University</p>
+                    <p class="mb-2 text-blue-100"><i class="fas fa-envelope w-6 text-center mr-2 text-nau-gold"></i>semicon.lab@nau.edu</p>
+                    <p class="text-blue-100"><i class="fas fa-phone w-6 text-center mr-2 text-nau-gold"></i>(928) 523-0000</p>
+                </div>
+
+                <div>
+                    <h4 class="font-heading font-bold text-lg mb-4 text-nau-gold uppercase tracking-widest">Quick Links</h4>
+                    <ul class="space-y-2 text-blue-100 font-medium">
+                        <li><a href="#" class="hover:text-nau-gold transition-colors">College of Engineering</a></li>
+                        <li><a href="#" class="hover:text-nau-gold transition-colors">Department of Applied Physics</a></li>
+                        <li><a href="#" class="hover:text-nau-gold transition-colors">Campus Map</a></li>
+                        <li><a href="#" class="hover:text-nau-gold transition-colors">Lab Safety Protocols</a></li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col items-start md:items-end">
+                     <div class="font-heading font-extrabold text-4xl text-white mb-2 tracking-tighter">NAU</div>
+                     <p class="text-sm text-blue-200 text-left md:text-right font-medium">
+                         Northern Arizona University<br>
+                         Flagstaff, AZ 86011
+                     </p>
+                     <div class="mt-6 flex space-x-4">
+                         <a href="#" class="text-white hover:text-nau-gold transition-colors"><i class="fab fa-facebook-f text-xl"></i></a>
+                         <a href="#" class="text-white hover:text-nau-gold transition-colors"><i class="fab fa-twitter text-xl"></i></a>
+                         <a href="#" class="text-white hover:text-nau-gold transition-colors"><i class="fab fa-linkedin-in text-xl"></i></a>
+                         <a href="#" class="text-white hover:text-nau-gold transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+                     </div>
+                </div>
+            </div>
+
+            <div class="border-t border-blue-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-blue-300 font-medium">
+                <p>&copy; 2024 Northern Arizona University. All Rights Reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Accessibility</a>
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="booking-modal" class="hidden fixed inset-0 z-[60] overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-nau-blue bg-opacity-90 transition-opacity" onclick="toggleBookingModal()"></div>
+
+        <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0 w-full">
+            <div class="relative bg-nau-offWhite text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-6xl sm:w-full rounded-sm flex flex-col max-h-[90vh]">
+                
+                <div class="bg-white border-b border-gray-200 sticky top-0 z-10">
+                    <div class="px-4 pt-5 pb-2 sm:px-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
+                        <div>
+                            <h3 class="text-2xl leading-6 font-extrabold text-nau-blue font-heading uppercase" id="modal-title">Equipment Catalog & Booking</h3>
+                            <p class="text-sm text-gray-500 mt-1">Select an instrument to view availability and reserve time.</p>
+                        </div>
+
+                        <div class="flex items-center gap-4 self-end sm:self-auto">
+                            <div class="flex bg-gray-100 p-1 rounded-md border border-gray-200">
+                                <button id="grid-view-btn" onclick="setEquipmentView('grid')" class="p-2 rounded-sm text-nau-blue bg-white shadow-sm transition-all focus:outline-none" title="Grid View">
+                                    <i class="fas fa-th-large"></i>
+                                </button>
+                                <button id="list-view-btn" onclick="setEquipmentView('list')" class="p-2 rounded-sm text-gray-500 hover:text-nau-blue transition-all focus:outline-none" title="List View">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                            <button type="button" onclick="toggleBookingModal()" class="text-gray-400 hover:text-nau-gold transition-colors focus:outline-none ml-2">
+                                <i class="fas fa-times text-2xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="px-4 pb-4 sm:px-6 overflow-x-auto">
+                        <div class="flex space-x-2 mt-4 font-heading uppercase text-sm tracking-wide min-w-max">
+                            <button onclick="filterEquipment('all')" class="filter-btn active px-4 py-2 rounded-full border border-gray-300 bg-nau-blue text-white transition-colors" data-filter="all">All</button>
+                            <button onclick="filterEquipment('microscopy')" class="filter-btn px-4 py-2 rounded-full border border-gray-300 bg-white text-gray-700 hover:border-nau-blue hover:text-nau-blue transition-colors" data-filter="microscopy">Microscopy</button>
+                            <button onclick="filterEquipment('metrology')" class="filter-btn px-4 py-2 rounded-full border border-gray-300 bg-white text-gray-700 hover:border-nau-blue hover:text-nau-blue transition-colors" data-filter="metrology">Metrology</button>
+                            <button onclick="filterEquipment('calibration')" class="filter-btn px-4 py-2 rounded-full border border-gray-300 bg-white text-gray-700 hover:border-nau-blue hover:text-nau-blue transition-colors" data-filter="calibration">Calibration</button>
+                            <button onclick="filterEquipment('electronics')" class="filter-btn px-4 py-2 rounded-full border border-gray-300 bg-white text-gray-700 hover:border-nau-blue hover:text-nau-blue transition-colors" data-filter="electronics">Electronics</button>
+                            <button onclick="filterEquipment('prototyping')" class="filter-btn px-4 py-2 rounded-full border border-gray-300 bg-white text-gray-700 hover:border-nau-blue hover:text-nau-blue transition-colors" data-filter="prototyping">Prototyping</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="px-4 py-8 sm:p-8 bg-gray-50 overflow-y-auto flex-grow">
+                    <div id="equipment-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-all">
+
+                        <div class="equipment-item bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition-all flex flex-col" data-category="microscopy">
+                            <div class="item-image h-40 bg-gray-200 relative overflow-hidden flex-shrink-0">
+                                <img src="Keyence7000.avif" alt="Keyence VHX 7000" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-sm border border-green-200">AVAILABLE</span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-nau-blue font-heading text-lg uppercase mb-1">Keyence VHX 7000</h4>
+                                    <p class="text-xs text-gray-500 font-bold mb-2">WITH EA 300 MODULE</p>
+                                    <p class="text-sm text-gray-700 mb-4">4K Digital Microscope with elemental analysis capabilities. Ideal for defect inspection.</p>
+                                </div>
+                                <div class="mt-auto flex gap-2">
+                                    <button onclick="openDetails('keyence-7000')" class="flex-1 bg-gray-200 text-nau-blue py-2 px-4 rounded-sm hover:bg-gray-300 font-bold text-sm uppercase transition-colors">About</button>
+                                    <button class="flex-1 bg-nau-blue text-white py-2 px-4 rounded-sm hover:bg-nau-gold hover:text-nau-blue font-bold text-sm uppercase transition-colors">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="equipment-item bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition-all flex flex-col" data-category="microscopy metrology">
+                            <div class="item-image h-40 bg-gray-200 relative overflow-hidden flex-shrink-0">
+                                <img src="Keyence3000.jpeg" alt="Keyence VKX 3000" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-sm border border-green-200">AVAILABLE</span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-nau-blue font-heading text-lg uppercase mb-1">Keyence VKX 3000</h4>
+                                    <p class="text-xs text-gray-500 font-bold mb-2">3D SURFACE PROFILER</p>
+                                    <p class="text-sm text-gray-700 mb-4">Laser scanning confocal microscope for non-contact 3D surface measurement.</p>
+                                </div>
+                                <div class="mt-auto flex gap-2">
+                                    <button onclick="openDetails('keyence-3000')" class="flex-1 bg-gray-200 text-nau-blue py-2 px-4 rounded-sm hover:bg-gray-300 font-bold text-sm uppercase transition-colors">About</button>
+                                    <button class="flex-1 bg-nau-blue text-white py-2 px-4 rounded-sm hover:bg-nau-gold hover:text-nau-blue font-bold text-sm uppercase transition-colors">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="equipment-item bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition-all flex flex-col" data-category="microscopy metrology">
+                            <div class="item-image h-40 bg-gray-200 relative overflow-hidden flex-shrink-0">
+                                <img src="B2_AFM.png" alt="AFM" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded-sm border border-yellow-200">LIMITED</span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-nau-blue font-heading text-lg uppercase mb-1">B-2 AFM</h4>
+                                    <p class="text-xs text-gray-500 font-bold mb-2">ATOMIC FORCE MICROSCOPE</p>
+                                    <p class="text-sm text-gray-700 mb-4">Nanoscale topographical imaging and material property characterization.</p>
+                                </div>
+                                <div class="mt-auto flex gap-2">
+                                    <button onclick="openDetails('b2-afm')" class="flex-1 bg-gray-200 text-nau-blue py-2 px-4 rounded-sm hover:bg-gray-300 font-bold text-sm uppercase transition-colors">About</button>
+                                    
+                                    <button onclick="window.location.href='checkout.html'" class="flex-1 bg-nau-blue text-white py-2 px-4 rounded-sm hover:bg-nau-gold hover:text-nau-blue font-bold text-sm uppercase transition-colors">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="equipment-item bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition-all flex flex-col" data-category="microscopy">
+                            <div class="item-image h-40 bg-gray-200 relative overflow-hidden flex-shrink-0">
+                                <img src="TEM.png" alt="JEOL TEM" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded-sm border border-red-200">MAINTENANCE</span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-nau-blue font-heading text-lg uppercase mb-1">JEOL TEM</h4>
+                                    <p class="text-xs text-gray-500 font-bold mb-2">TRANSMISSION ELECTRON MICROSCOPE</p>
+                                    <p class="text-sm text-gray-700 mb-4">High-resolution transmission electron microscopy for internal structure analysis.</p>
+                                </div>
+                                <div class="mt-auto flex gap-2">
+                                    <button onclick="openDetails('jeol-tem')" class="flex-1 bg-gray-200 text-nau-blue py-2 px-4 rounded-sm hover:bg-gray-300 font-bold text-sm uppercase transition-colors">About</button>
+                                    <button disabled class="flex-1 bg-gray-300 text-gray-500 py-2 px-4 rounded-sm font-bold text-sm uppercase cursor-not-allowed">Unavailable</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="equipment-item bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition-all flex flex-col" data-category="prototyping">
+                            <div class="item-image h-40 bg-gray-200 relative overflow-hidden flex-shrink-0">
+                                <img src="LPKF.png" alt="LPKF PCB Mill" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-sm border border-green-200">AVAILABLE</span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-nau-blue font-heading text-lg uppercase mb-1">LPKF PCB Mill</h4>
+                                    <p class="text-xs text-gray-500 font-bold mb-2">RAPID PROTOTYPING</p>
+                                    <p class="text-sm text-gray-700 mb-4">Precision milling machine for rapid in-house PCB prototyping and fabrication.</p>
+                                </div>
+                                <div class="mt-auto flex gap-2">
+                                    <button onclick="openDetails('lpkf-pcb')" class="flex-1 bg-gray-200 text-nau-blue py-2 px-4 rounded-sm hover:bg-gray-300 font-bold text-sm uppercase transition-colors">About</button>
+                                    <button class="flex-1 bg-nau-blue text-white py-2 px-4 rounded-sm hover:bg-nau-gold hover:text-nau-blue font-bold text-sm uppercase transition-colors">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="equipment-item bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition-all flex flex-col" data-category="prototyping">
+                            <div class="item-image h-40 bg-gray-200 relative overflow-hidden flex-shrink-0">
+                                <img src="Voltera.webp" alt="Voltera V-One" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-sm border border-green-200">AVAILABLE</span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-nau-blue font-heading text-lg uppercase mb-1">Voltera V-One</h4>
+                                    <p class="text-xs text-gray-500 font-bold mb-2">PCB PRINTER</p>
+                                    <p class="text-sm text-gray-700 mb-4">Desktop PCB printer for rapid prototyping of double-sided boards and solder paste dispensing.</p>
+                                </div>
+                                <div class="mt-auto flex gap-2">
+                                    <button onclick="openDetails('voltera')" class="flex-1 bg-gray-200 text-nau-blue py-2 px-4 rounded-sm hover:bg-gray-300 font-bold text-sm uppercase transition-colors">About</button>
+                                    <button class="flex-1 bg-nau-blue text-white py-2 px-4 rounded-sm hover:bg-nau-gold hover:text-nau-blue font-bold text-sm uppercase transition-colors">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="equipment-item bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition-all flex flex-col" data-category="calibration">
+                            <div class="item-image h-40 bg-gray-200 relative overflow-hidden flex-shrink-0">
+                                <img src="DWT.webp" alt="Fluke Dead Weight" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-sm border border-green-200">AVAILABLE</span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-nau-blue font-heading text-lg uppercase mb-1">Fluke Dead Weight</h4>
+                                    <p class="text-xs text-gray-500 font-bold mb-2">MODELS 3114 & 3025</p>
+                                    <p class="text-sm text-gray-700 mb-4">Primary standards for high-precision pressure calibration (hydraulic & pneumatic).</p>
+                                </div>
+                                <div class="mt-auto flex gap-2">
+                                    <button onclick="openDetails('fluke')" class="flex-1 bg-gray-200 text-nau-blue py-2 px-4 rounded-sm hover:bg-gray-300 font-bold text-sm uppercase transition-colors">About</button>
+                                    <button class="flex-1 bg-nau-blue text-white py-2 px-4 rounded-sm hover:bg-nau-gold hover:text-nau-blue font-bold text-sm uppercase transition-colors">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <div class="equipment-item bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition-all flex flex-col" data-category="calibration">
+                            <div class="item-image h-40 bg-gray-200 relative overflow-hidden flex-shrink-0">
+                                <img src="TPW.webp" alt="Metrology Dry Wells" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-sm border border-green-200">AVAILABLE</span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-nau-blue font-heading text-lg uppercase mb-1">Metrology Dry Wells</h4>
+                                    <p class="text-xs text-gray-500 font-bold mb-2">TEMPERATURE CALIBRATION</p>
+                                    <p class="text-sm text-gray-700 mb-4">Field metrology wells for stable and accurate temperature sensor calibration.</p>
+                                </div>
+                                <div class="mt-auto flex gap-2">
+                                    <button onclick="openDetails('dry-wells')" class="flex-1 bg-gray-200 text-nau-blue py-2 px-4 rounded-sm hover:bg-gray-300 font-bold text-sm uppercase transition-colors">About</button>
+                                    <button class="flex-1 bg-nau-blue text-white py-2 px-4 rounded-sm hover:bg-nau-gold hover:text-nau-blue font-bold text-sm uppercase transition-colors">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="equipment-item bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition-all flex flex-col" data-category="electronics">
+                            <div class="item-image h-40 bg-gray-200 relative overflow-hidden flex-shrink-0">
+                                <img src="DMM.jpg" alt="Keithley DC Power Supply" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-sm border border-green-200">AVAILABLE</span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-nau-blue font-heading text-lg uppercase mb-1">Keithley 2231A-30-3</h4>
+                                    <p class="text-xs text-gray-500 font-bold mb-2">TRIPLE CHANNEL DC SUPPLY</p>
+                                    <p class="text-sm text-gray-700 mb-4">High-power, triple-channel programmable DC power supply for circuit testing.</p>
+                                </div>
+                                <div class="mt-auto flex gap-2">
+                                    <button onclick="openDetails('keithley')" class="flex-1 bg-gray-200 text-nau-blue py-2 px-4 rounded-sm hover:bg-gray-300 font-bold text-sm uppercase transition-colors">About</button>
+                                    <button class="flex-1 bg-nau-blue text-white py-2 px-4 rounded-sm hover:bg-nau-gold hover:text-nau-blue font-bold text-sm uppercase transition-colors">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="equipment-item bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition-all flex flex-col" data-category="electronics">
+                            <div class="item-image h-40 bg-gray-200 relative overflow-hidden flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="AFG 1000 Generator" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-sm border border-green-200">AVAILABLE</span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-nau-blue font-heading text-lg uppercase mb-1">AFG 1000 Series</h4>
+                                    <p class="text-xs text-gray-500 font-bold mb-2">ARBITRARY/FUNCTION GENERATOR</p>
+                                    <p class="text-sm text-gray-700 mb-4">Generates sine, square, pulse, ramp, and noise signals for electronics labs.</p>
+                                </div>
+                                <div class="mt-auto flex gap-2">
+                                    <button onclick="openDetails('afg-1000')" class="flex-1 bg-gray-200 text-nau-blue py-2 px-4 rounded-sm hover:bg-gray-300 font-bold text-sm uppercase transition-colors">About</button>
+                                    <button class="flex-1 bg-nau-blue text-white py-2 px-4 rounded-sm hover:bg-nau-gold hover:text-nau-blue font-bold text-sm uppercase transition-colors">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="equipment-item bg-white border border-gray-200 rounded-sm shadow-sm hover:shadow-md transition-all flex flex-col" data-category="electronics">
+                            <div class="item-image h-40 bg-gray-200 relative overflow-hidden flex-shrink-0">
+                                <img src="TBS_1000.webp" alt="TBS 1000C Oscilloscope" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-sm border border-green-200">AVAILABLE</span>
+                            </div>
+                            <div class="p-4 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-nau-blue font-heading text-lg uppercase mb-1">TBS 1000C Series</h4>
+                                    <p class="text-xs text-gray-500 font-bold mb-2">DIGITAL OSCILLOSCOPE</p>
+                                    <p class="text-sm text-gray-700 mb-4">Affordable, compact digital storage oscilloscope for education and embedded design.</p>
+                                </div>
+                                <div class="mt-auto flex gap-2">
+                                    <button onclick="openDetails('tbs-1000')" class="flex-1 bg-gray-200 text-nau-blue py-2 px-4 rounded-sm hover:bg-gray-300 font-bold text-sm uppercase transition-colors">About</button>
+                                    <button class="flex-1 bg-nau-blue text-white py-2 px-4 rounded-sm hover:bg-nau-gold hover:text-nau-blue font-bold text-sm uppercase transition-colors">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 px-4 py-3 sm:px-6 flex justify-end">
+                    <button type="button" onclick="toggleBookingModal()" class="w-full inline-flex justify-center rounded-sm border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-nau-blue focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm font-heading uppercase tracking-wide">
+                        Close Catalog
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="details-modal" class="hidden fixed inset-0 z-[70] overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-nau-blue bg-opacity-95 transition-opacity" onclick="closeDetails()"></div>
+
+        <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0 w-full">
+            <div class="relative bg-white text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-4xl sm:w-full rounded-sm flex flex-col md:flex-row">
+                
+                <div class="md:w-1/2 bg-gray-200 relative h-64 md:h-auto">
+                    <img id="detail-image" src="" alt="Equipment Detail" class="w-full h-full object-cover absolute inset-0">
+                </div>
+
+                <div class="md:w-1/2 p-8 flex flex-col">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 id="detail-title" class="text-3xl font-extrabold text-nau-blue font-heading uppercase leading-none"></h3>
+                        <button onclick="closeDetails()" class="text-gray-400 hover:text-nau-gold"><i class="fas fa-times text-2xl"></i></button>
+                    </div>
+
+                    <div class="mb-6">
+                        <span id="detail-status" class="inline-block px-3 py-1 rounded-sm text-xs font-bold uppercase tracking-wider mb-2"></span>
+                        <p id="detail-desc" class="text-gray-700 text-lg leading-relaxed"></p>
+                    </div>
+
+                    <div class="space-y-4 mb-8 bg-nau-offWhite p-6 rounded-sm border border-gray-200">
+                        <div class="flex items-center">
+                            <i class="fas fa-dollar-sign w-6 text-nau-gold text-lg"></i>
+                            <div>
+                                <span class="block text-xs text-gray-500 font-bold uppercase">Hourly Rate</span>
+                                <span id="detail-price" class="font-medium text-nau-blue"></span>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-user-circle w-6 text-nau-gold text-lg"></i>
+                            <div>
+                                <span class="block text-xs text-gray-500 font-bold uppercase">Person In-Charge</span>
+                                <span id="detail-incharge" class="font-medium text-nau-blue"></span>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt w-6 text-nau-gold text-lg"></i>
+                            <div>
+                                <span class="block text-xs text-gray-500 font-bold uppercase">Location</span>
+                                <span id="detail-location" class="font-medium text-nau-blue"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-auto flex gap-3">
+                        <a id="detail-link" href="#" target="_blank" class="flex-1 border-2 border-nau-blue text-nau-blue py-3 px-4 rounded-sm hover:bg-nau-blue hover:text-white font-bold text-center uppercase transition-colors">
+                            <i class="fas fa-external-link-alt mr-2"></i> Specs
+                        </a>
+                        <button class="flex-1 bg-nau-gold text-nau-blue py-3 px-4 rounded-sm hover:bg-nau-goldHover font-bold uppercase transition-colors shadow-md">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // MODAL TOGGLE FUNCTION
+        function toggleBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            modal.classList.toggle('hidden');
+            // Prevent body scroll when modal is open
+            if (!modal.classList.contains('hidden')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // FILTER FUNCTION
+        function filterEquipment(category) {
+            const items = document.querySelectorAll('.equipment-item');
+            
+            // Update active button state
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if(btn.dataset.filter === category) {
+                    btn.classList.add('bg-nau-blue', 'text-white', 'border-transparent');
+                    btn.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
+                } else {
+                    btn.classList.remove('bg-nau-blue', 'text-white', 'border-transparent');
+                    btn.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
+                }
+            });
+
+            // Show/Hide Items
+            items.forEach(item => {
+                const itemCats = item.dataset.category.split(' ');
+                if (category === 'all' || itemCats.includes(category)) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        // VIEW SWITCHER LOGIC
+        function setEquipmentView(view) {
+            const container = document.getElementById('equipment-container');
+            const items = document.querySelectorAll('.equipment-item');
+            const itemImages = document.querySelectorAll('.item-image');
+            
+            const gridBtn = document.getElementById('grid-view-btn');
+            const listBtn = document.getElementById('list-view-btn');
+
+            if (view === 'list') {
+                container.classList.remove('grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4');
+                container.classList.add('grid-cols-1');
+                items.forEach(item => {
+                    item.classList.remove('flex-col');
+                    item.classList.add('flex-row', 'items-center', 'min-h-[160px]');
+                });
+                itemImages.forEach(img => {
+                    img.classList.remove('h-40');
+                    img.classList.add('w-48', 'h-full', 'min-h-[160px]');
+                });
+                listBtn.classList.add('bg-white', 'shadow-sm', 'text-nau-blue');
+                listBtn.classList.remove('text-gray-500');
+                gridBtn.classList.remove('bg-white', 'shadow-sm', 'text-nau-blue');
+                gridBtn.classList.add('text-gray-500');
+
+            } else {
+                container.classList.remove('grid-cols-1');
+                container.classList.add('grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4');
+                items.forEach(item => {
+                    item.classList.add('flex-col');
+                    item.classList.remove('flex-row', 'items-center', 'min-h-[160px]');
+                });
+                itemImages.forEach(img => {
+                    img.classList.add('h-40');
+                    img.classList.remove('w-48', 'h-full', 'min-h-[160px]');
+                });
+                gridBtn.classList.add('bg-white', 'shadow-sm', 'text-nau-blue');
+                gridBtn.classList.remove('text-gray-500');
+                listBtn.classList.remove('bg-white', 'shadow-sm', 'text-nau-blue');
+                listBtn.classList.add('text-gray-500');
+            }
+        }
+
+        // --- NEW: EQUIPMENT DETAILS LOGIC ---
+
+        const equipmentDB = {
+            'keyence-7000': {
+                title: 'Keyence VHX 7000',
+                image: 'VHX_2.avif',
+                status: 'Available',
+                statusColor: 'bg-green-100 text-green-800',
+                desc: 'The VHX-7000 Series is a 4K digital microscope that offers high magnification and accuracy. It features advanced elemental analysis capabilities, making it ideal for detailed defect inspection and material characterization.',
+                price: '$45/hr (Academic) | $120/hr (Industry)',
+                inCharge: 'Dr. Sarah Miller',
+                location: 'Building 69, Room 102A',
+                link: 'https://www.keyence.com/products/microscope/digital-microscope/vhx-7000/'
+            },
+            'keyence-3000': {
+                title: 'Keyence VKX 3000',
+                image: 'VKX_2.avif',
+                status: 'Available',
+                statusColor: 'bg-green-100 text-green-800',
+                desc: '3D Laser Scanning Confocal Microscope. Provides non-contact, nanometer-level surface roughness and profile measurements.',
+                price: '$60/hr (Academic) | $150/hr (Industry)',
+                inCharge: 'Dr. Sarah Miller',
+                location: 'Building 69, Room 102A',
+                link: 'https://www.keyence.com/products/microscope/laser-microscope/vk-x3000/'
+            },
+            'b2-afm': {
+                title: 'B-2 AFM',
+                image: 'B2_2.png',
+                status: 'Limited',
+                statusColor: 'bg-yellow-100 text-yellow-800',
+                desc: 'Atomic Force Microscope for high-resolution topographical imaging. Capable of contact and tapping modes for various material types.',
+                price: '$80/hr (Academic) | $200/hr (Industry)',
+                inCharge: 'Prof. James Chen',
+                location: 'Building 69, Cleanroom Bay 1',
+                link: 'https://www.afmworkshop.com/afm-products/atomic-force-microscopes/b-afm'
+            },
+            'jeol-tem': {
+                title: 'JEOL TEM',
+                image: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=600&q=80',
+                status: 'Maintenance',
+                statusColor: 'bg-red-100 text-red-800',
+                desc: 'Transmission Electron Microscope. Currently undergoing scheduled filament replacement and column alignment.',
+                price: 'Unavailable',
+                inCharge: 'Lab Manager',
+                location: 'Building 69, Basement Lab',
+                link: '#'
+            },
+            'lpkf-pcb': {
+                title: 'LPKF PCB Mill',
+                image: 'https://images.unsplash.com/photo-1622434641406-a158123450f9?auto=format&fit=crop&w=600&q=80',
+                status: 'Available',
+                statusColor: 'bg-green-100 text-green-800',
+                desc: 'Rapid PCB Prototyping machine. Mills copper clad boards for quick turnaround of circuit designs without chemical etching.',
+                price: '$20/hr (Academic) | $50/hr (Industry)',
+                inCharge: 'T.A. John Doe',
+                location: 'Building 69, Room 105',
+                link: '#'
+            },
+            'voltera': {
+                title: 'Voltera V-One',
+                image: 'https://images.unsplash.com/photo-1629904853716-f0bc54eea481?auto=format&fit=crop&w=600&q=80',
+                status: 'Available',
+                statusColor: 'bg-green-100 text-green-800',
+                desc: 'Desktop PCB Printer. Dispenses conductive ink and solder paste, and includes a reflow heat bed for component assembly.',
+                price: '$15/hr (Academic) | $40/hr (Industry)',
+                inCharge: 'T.A. John Doe',
+                location: 'Building 69, Room 105',
+                link: '#'
+            },
+            'fluke': {
+                title: 'Fluke Dead Weight',
+                image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=600&q=80',
+                status: 'Available',
+                statusColor: 'bg-green-100 text-green-800',
+                desc: 'Primary pressure standard. Uses calibrated weights to apply precise pressure for gauge calibration.',
+                price: '$30/hr (Academic) | $80/hr (Industry)',
+                inCharge: 'Metrology Staff',
+                location: 'Building 69, Room 104',
+                link: '#'
+            },
+            'dry-wells': {
+                title: 'Metrology Dry Wells',
+                image: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=600&q=80',
+                status: 'Available',
+                statusColor: 'bg-green-100 text-green-800',
+                desc: 'High-stability temperature sources for calibrating thermocouples and RTDs.',
+                price: '$25/hr (Academic) | $60/hr (Industry)',
+                inCharge: 'Metrology Staff',
+                location: 'Building 69, Room 104',
+                link: '#'
+            },
+            'keithley': {
+                title: 'Keithley 2231A-30-3',
+                image: 'https://images.unsplash.com/photo-1588508065123-287b9eddcf78?auto=format&fit=crop&w=600&q=80',
+                status: 'Available',
+                statusColor: 'bg-green-100 text-green-800',
+                desc: 'Triple Channel DC Power Supply. Fully programmable for automated testing sequences.',
+                price: 'Free (Students) | $20/hr (Industry)',
+                inCharge: 'Open Lab',
+                location: 'Building 69, Room 106',
+                link: '#'
+            },
+            'afg-1000': {
+                title: 'AFG 1000 Series',
+                image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80',
+                status: 'Available',
+                statusColor: 'bg-green-100 text-green-800',
+                desc: 'Arbitrary Function Generator. Essential for injecting signals into circuits for characterization.',
+                price: 'Free (Students) | $20/hr (Industry)',
+                inCharge: 'Open Lab',
+                location: 'Building 69, Room 106',
+                link: '#'
+            },
+            'tbs-1000': {
+                title: 'TBS 1000C Series',
+                image: 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=600&q=80',
+                status: 'Available',
+                statusColor: 'bg-green-100 text-green-800',
+                desc: 'Digital Storage Oscilloscope. 2-channel, 100 MHz bandwidth for general purpose electronics debugging.',
+                price: 'Free (Students) | $20/hr (Industry)',
+                inCharge: 'Open Lab',
+                location: 'Building 69, Room 106',
+                link: '#'
+            }
+        };
+
+        function openDetails(id) {
+            const data = equipmentDB[id];
+            if (!data) return;
+
+            // Populate Modal
+            document.getElementById('detail-image').src = data.image;
+            document.getElementById('detail-title').innerText = data.title;
+            
+            const statusBadge = document.getElementById('detail-status');
+            statusBadge.innerText = data.status;
+            statusBadge.className = `inline-block px-3 py-1 rounded-sm text-xs font-bold uppercase tracking-wider mb-2 ${data.statusColor}`;
+
+            document.getElementById('detail-desc').innerText = data.desc;
+            document.getElementById('detail-price').innerText = data.price;
+            document.getElementById('detail-incharge').innerText = data.inCharge;
+            document.getElementById('detail-location').innerText = data.location;
+            document.getElementById('detail-link').href = data.link;
+
+            // Show Modal
+            const modal = document.getElementById('details-modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeDetails() {
+            const modal = document.getElementById('details-modal');
+            modal.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
